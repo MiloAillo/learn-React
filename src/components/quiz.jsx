@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Result from "./result"
 
 function Quiz() {
     const questionBank = [
@@ -22,6 +23,7 @@ function Quiz() {
 
     const [userAnswers, setUserAnswers] = useState([null, null, null])
     const [currentQuestion, setCurrentQuestion] = useState(0)
+    const [isFinished, setIsFinished] = useState(false)
 
     const selectedAnswer = userAnswers[currentQuestion]
 
@@ -34,6 +36,9 @@ function Quiz() {
     function nextQuestion() {
         if (currentQuestion < questionBank.length - 1) {
             setCurrentQuestion(currentQuestion + 1)
+        }
+        else {
+            setIsFinished(true)
         }
     }
     function previousQuestion() {
