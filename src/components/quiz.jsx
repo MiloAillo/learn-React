@@ -1,63 +1,15 @@
-import { useState } from "react"
-import Result from "./result"
-
-function Quiz() {
-    const questionBank = [
-        {
-            "question": "What does MiloAillo stands for?",
-            "options": ["My Love Aillo", "Mas Ilo Anjing Lo", "None of the above"],
-            "answer": "None of the above"
-        },
-        {
-            "question": "Is MiloAillo goodlooking?",
-            "options": ["Erm.. sure?", "Yes", "OMFG OMFG YESSS!!"],
-            "answer": "OMFG OMFG YESSS!!"
-        },
-        {
-            "question": "Is MiloAillo a dumbass?",
-            "options": ["DUMB AS BRICK", "Absolutely", "Kill yourself"],
-            "answer": "None of the above"
-        }
-        
-    ]
-
-    const [userAnswers, setUserAnswers] = useState([null, null, null])
-    const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [isFinished, setIsFinished] = useState(false)
-
-    const selectedAnswer = userAnswers[currentQuestion]
-
-    function handleSelectOption(option) {
-        let updatedUserAnswers = [...userAnswers]
-        updatedUserAnswers[currentQuestion] = option
-        setUserAnswers(updatedUserAnswers)
-        console.log(updatedUserAnswers)
-    }
-    function nextQuestion() {
-        if (currentQuestion < questionBank.length - 1) {
-            setCurrentQuestion(currentQuestion + 1)
-        }
-        else {
-            setIsFinished(true)
-        }
-    }
-    function previousQuestion() {
-        if (currentQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1)
-        }
-    }
-
+function Quiz({question, currentIndex, userAnswers, handleSelectOption, previousQuestion, nextQuestion, selectedAnswer, questionBank}) {
     return <div>
-        <h2>Question {currentQuestion + 1}</h2>
+        <h2>Question {currentIndex + 1}</h2>
 
-        <p>{questionBank[currentQuestion].question}</p>
-        {questionBank[currentQuestion].options.map((option) => (
-            <button className={"option" + (userAnswers[currentQuestion] === option ? " selected" : "")} onClick={() => handleSelectOption(option)} key={option}>{option}</button>
+        <p>{question.question}</p>
+        {question.options.map((option) => (
+            <button className={"option" + (userAnswers[currentIndex] === option ? " selected" : "")} onClick={() => handleSelectOption(option)} key={option}>{option}</button>
         ))}
 
         <div className="nav-buttons">
-            <button onClick={previousQuestion} disabled={currentQuestion === 0}>Previous</button>
-            <button onClick={nextQuestion} disabled={selectedAnswer === null}>{currentQuestion === questionBank.length - 1 ? "Finish" : "Next"}</button>
+            <button onClick={previousQuestion} disabled={currentIndex === 0}>Previous</button>
+            <button onClick={nextQuestion} disabled={selectedAnswer === null}>{currentIndex === questionBank.length - 1 ? "Finish" : "Next"}</button>
         </div>
     </div>
 }

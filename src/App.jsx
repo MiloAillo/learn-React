@@ -1,6 +1,5 @@
 import './index.css' 
 import QuizContainer from './containers/quizContainer'
-import Quiz from './components/quiz'
 
 function App() {
 
