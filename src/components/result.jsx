@@ -1,8 +1,8 @@
-function Result() {
+function Result({userTrueAnswers, questionBank, restartQuiz}) {
     return <div>
         <h2>Quiz Completed!</h2>
-        <p>Your score: 2/3</p>
-        <button className="restart-button">Restart</button>
+        <p>Your score: {userTrueAnswers}/{questionBank.length}</p>
+        <button className="restart-button" onClick={restartQuiz}>Restart</button>
     </div>
 }
 

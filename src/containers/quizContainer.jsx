@@ -7,7 +7,9 @@ function QuizContainer() {
     const [userAnswers, setUserAnswers] = useState([null, null, null])
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [isFinished, setIsFinished] = useState(false)
-    useEffect(() => {console.log(isFinished)}, [])
+    const [usertrueAnswers, setUserTrueAnswers] = useState(0)
+    useEffect(() => {console.log(questionBank[0].answer)}, [])
+    useEffect(() => calculate(), [isFinished])
 
     // Normal Variables
     const selectedAnswer = userAnswers[currentQuestion]
@@ -25,7 +27,7 @@ function QuizContainer() {
         {
             "question": "Is MiloAillo a dumbass?",
             "options": ["DUMB AS BRICK", "Absolutely", "Kill yourself"],
-            "answer": "None of the above"
+            "answer": "Kill yourself"
         }
     ]
 
@@ -49,9 +51,31 @@ function QuizContainer() {
             setCurrentQuestion(currentQuestion - 1)
         }
     }
+    function calculate() {
+        let correctAnswers = 0
+        userAnswers.forEach((val, index) => {
+            if (val === questionBank[index].answer) {
+                correctAnswers = correctAnswers + 1
+                console.log('if logic triggered')
+            } else {
+                console.log('if logic is not triggered')
+            }
+        });
+        setUserTrueAnswers(correctAnswers)
+    }
+    function restartQuiz() {
+        setUserAnswers([null, null, null])
+        setCurrentQuestion(0)
+        setIsFinished(false)
+        setUserTrueAnswers(0)
+    }
 
     return isFinished 
-    ? <Result />
+    ? <Result 
+        userTrueAnswers = {usertrueAnswers}
+        questionBank = {questionBank}
+        restartQuiz = {restartQuiz}
+    />
     : <Quiz 
         question = {questionBank[currentQuestion]}
         currentIndex = {currentQuestion}
