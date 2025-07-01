@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Quiz from "../components/quiz";
 import Result from "../components/result";
 
@@ -7,6 +7,7 @@ function QuizContainer() {
     const [userAnswers, setUserAnswers] = useState([null, null, null])
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [isFinished, setIsFinished] = useState(false)
+    useEffect(() => {console.log(isFinished)}, [])
 
     // Normal Variables
     const selectedAnswer = userAnswers[currentQuestion]
@@ -49,8 +50,9 @@ function QuizContainer() {
         }
     }
 
-    return <div>
-        <Quiz 
+    return isFinished 
+    ? <Result />
+    : <Quiz 
         question = {questionBank[currentQuestion]}
         currentIndex = {currentQuestion}
         userAnswers = {userAnswers}
@@ -59,9 +61,7 @@ function QuizContainer() {
         nextQuestion = {nextQuestion}
         selectedAnswer = {selectedAnswer}
         questionBank = {questionBank}
-        />
-        <Result />
-    </div>
+    />
 }
 
 export default QuizContainer
