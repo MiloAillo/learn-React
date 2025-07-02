@@ -1,3 +1,7 @@
+## Learn-React
+Quiz app using React based on [PedroTech's tutorial](https://www.youtube.com/watch?v=3OqiKTyH4r0&t=2629s), heavily refactored with a scalable code structure.
+Shoutout to my gng PedroTech and many other React courses
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
